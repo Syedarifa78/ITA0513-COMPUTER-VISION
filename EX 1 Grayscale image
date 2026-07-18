@@ -1,0 +1,15 @@
+from PIL import Image
+
+# Open the image
+image = Image.open("input.jpg")
+
+# Convert to grayscale
+gray_image = image.convert("L")
+
+# Save the grayscale image
+gray_image.save("grayscale_output.jpg")
+
+# Show the image
+gray_image.show()
+
+print("Image converted to grayscale successfully!")
