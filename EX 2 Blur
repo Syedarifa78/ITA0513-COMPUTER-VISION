@@ -1,0 +1,15 @@
+from PIL import Image, ImageFilter
+
+# Open the image
+image = Image.open("input.jpg")
+
+# Apply Gaussian Blur
+blur_image = image.filter(ImageFilter.GaussianBlur(radius=10))
+
+# Save the blurred image
+blur_image.save("blur_output.jpg")
+
+# Display the blurred image
+blur_image.show()
+
+print("Image blurred successfully!")
