@@ -1,0 +1,30 @@
+import cv2
+import numpy as np
+
+# Read the image
+image = cv2.imread("input.jpg")
+
+# Get image size
+rows, cols = image.shape[:2]
+
+# Select 3 points from the original image
+pts1 = np.float32([[50, 50], [200, 50], [50, 200]])
+
+# Select 3 corresponding points in the transformed image
+pts2 = np.float32([[10, 100], [200, 50], [100, 250]])
+
+# Compute the affine transformation matrix
+M = cv2.getAffineTransform(pts1, pts2)
+
+# Apply the affine transformation
+affine = cv2.warpAffine(image, M, (cols, rows))
+
+# Save the output image
+cv2.imwrite("affine_output.jpg", affine)
+
+# Display the images
+cv2.imshow("Original Image", image)
+cv2.imshow("Affine Transformation", affine)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
