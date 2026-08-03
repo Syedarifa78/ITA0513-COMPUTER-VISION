@@ -1,0 +1,30 @@
+import cv2
+import numpy as np
+
+# Read the image
+image = cv2.imread("input.jpg")
+
+# Check if image is loaded
+if image is None:
+    print("Error: Cannot open image")
+    exit()
+
+# Laplacian mask with negative center coefficient
+kernel = np.array([
+    [0, -1, 0],
+    [-1, 5, -1],
+    [0, -1, 0]
+])
+
+# Apply sharpening
+sharpened = cv2.filter2D(image, -1, kernel)
+
+# Save output image
+cv2.imwrite("laplacian_sharpen_output.jpg", sharpened)
+
+# Display images
+cv2.imshow("Original Image", image)
+cv2.imshow("Sharpened Image", sharpened)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
