@@ -1,0 +1,36 @@
+import cv2
+
+# Read the image
+image = cv2.imread("input.jpg")
+
+# Check if image is loaded
+if image is None:
+    print("Error: Cannot open image")
+    exit()
+
+# Convert image to grayscale
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Calculate gradients using Sobel
+grad_x = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=3)
+grad_y = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=3)
+
+# Compute gradient magnitude
+gradient = cv2.magnitude(grad_x, grad_y)
+
+# Convert gradient to 8-bit image
+gradient = cv2.convertScaleAbs(gradient)
+
+# Sharpen image by adding gradient mask
+sharpened = cv2.addWeighted(gray, 1.0, gradient, 0.5, 0)
+
+# Save output image
+cv2.imwrite("gradient_sharpen_output.jpg", sharpened)
+
+# Display images
+cv2.imshow("Original Image", image)
+cv2.imshow("Gradient Mask", gradient)
+cv2.imshow("Sharpened Image", sharpened)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
