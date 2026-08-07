@@ -1,0 +1,29 @@
+import cv2
+
+# Read the image
+image = cv2.imread("input.jpg")
+
+# Check if image is loaded
+if image is None:
+    print("Error: Cannot open image")
+    exit()
+
+# Blur the image
+blur = cv2.GaussianBlur(image, (9, 9), 10)
+
+# High-Boost Factor (A > 1)
+A = 2.0
+
+# Perform High-Boost Sharpening
+high_boost = cv2.addWeighted(image, A, blur, -(A - 1), 0)
+
+# Save the output image
+cv2.imwrite("high_boost_output.jpg", high_boost)
+
+# Display images
+cv2.imshow("Original Image", image)
+cv2.imshow("Blurred Image", blur)
+cv2.imshow("High-Boost Sharpened Image", high_boost)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
