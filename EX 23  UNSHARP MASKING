@@ -1,0 +1,26 @@
+import cv2
+
+
+image = cv2.imread("input.jpg")
+
+
+if image is None:
+    print("Error: Cannot open image")
+    exit()
+
+
+blur = cv2.GaussianBlur(image, (9, 9), 10.0)
+
+
+sharpened = cv2.addWeighted(image, 1.5, blur, -0.5, 0)
+
+
+cv2.imwrite("unsharp_output.jpg", sharpened)
+
+
+cv2.imshow("Original Image", image)
+cv2.imshow("Blurred Image", blur)
+cv2.imshow("Unsharp Masking", sharpened)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
