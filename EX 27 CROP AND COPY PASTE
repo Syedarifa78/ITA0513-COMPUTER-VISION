@@ -1,0 +1,33 @@
+import cv2
+
+# Read the two images
+image1 = cv2.imread("input.jpg")
+image2 = cv2.imread("input.jpg")
+
+# Check images
+if image1 is None:
+    print("Error: Cannot open input.jpg")
+    exit()
+
+if image2 is None:
+    print("Error: Cannot open target.jpg")
+    exit()
+
+# Crop a portion from input image
+crop = image1[50:250, 50:250]
+
+# Get crop dimensions
+h, w = crop.shape[:2]
+
+# Paste the cropped image into target image
+image2[50:50+h, 50:50+w] = crop
+
+# Save output
+cv2.imwrite("copy_paste_output.jpg", image2)
+
+# Display images
+cv2.imshow("Cropped Image", crop)
+cv2.imshow("Copy and Paste Result", image2)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
