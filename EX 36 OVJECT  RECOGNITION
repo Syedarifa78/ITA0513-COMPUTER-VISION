@@ -1,0 +1,30 @@
+from ultralytics import YOLO
+import cv2
+
+# Load YOLO-World model
+model = YOLO("yolov8x-worldv2.pt")
+
+# Set object to recognize
+model.set_classes(["watch"])
+
+# Read input image
+image = cv2.imread("input.jpg")
+
+if image is None:
+    print("Error: Cannot open image")
+    exit()
+
+# Detect watch
+results = model(image)
+
+# Draw detection results
+output = results[0].plot()
+
+# Save output
+cv2.imwrite("watch_output.jpg", output)
+
+# Display result
+cv2.imshow("Watch Detection", output)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
