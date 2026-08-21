@@ -1,0 +1,26 @@
+import cv2
+import numpy as np
+
+# Read the image
+image = cv2.imread("input.jpg")
+
+# Check if image is loaded
+if image is None:
+    print("Error: Cannot open image")
+    exit()
+
+# Create kernel
+kernel = np.ones((5, 5), np.uint8)
+
+# Apply Top Hat transformation
+top_hat = cv2.morphologyEx(image, cv2.MORPH_TOPHAT, kernel)
+
+# Save output
+cv2.imwrite("top_hat_output.jpg", top_hat)
+
+# Display images
+cv2.imshow("Original Image", image)
+cv2.imshow("Top Hat Image", top_hat)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
