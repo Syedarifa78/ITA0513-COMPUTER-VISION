@@ -1,0 +1,28 @@
+import cv2
+
+# Read image
+image = cv2.imread("input.jpg")
+
+# Check image
+if image is None:
+    print("Error: Cannot open image")
+    exit()
+
+# Select object using mouse
+x, y, w, h = cv2.selectROI("Select Object", image, False)
+
+# Extract selected object
+cropped_object = image[y:y+h, x:x+w]
+
+# Draw rectangle around selected object
+cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
+
+# Display images
+cv2.imshow("Rectangle Output", image)
+cv2.imshow("Extracted Object", cropped_object)
+
+# Save extracted object
+cv2.imwrite("extracted_object.jpg", cropped_object)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
